@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>amCharts</title>
+</head>
+
+<body>
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+
+    <div id="chartdiv_snsd" style="width:90vw; height:100vh"></div>
+
+    <script src="javascripts/svgPaths.js"></script>
+    <script>
+        am5.ready(function () {
+
+            var root = am5.Root.new("chartdiv_snsd");
+            var chart = root.container.children.push(
+                am5percent.SlicedChart.new(root, {})
+            );
+
+            var series = chart.series.push(
+                am5percent.PictorialStackedSeries.new(root, {
+                    svgPath: snsdPath,
+                    categoryField: "name",
+                    valueField: "value",
+                    orientation: "horizontal"
+                })
+            );
+
+            series.slices.template.setAll({
+                tooltipText: "{name} : {value}"
+            });
+
+            series.get("colors").set("colors", [
+                am5.color(0xff4980),
+                am5.color(0xe9cdc2),
+                am5.color(0x773d31),
+            ]);
+
+            series.labels.template.set("rotation", 0);
+            series.ticks.template.set("location", 0.95);
+            series.slices.template.set("tooltipY", 75);
+
+            series.data.setAll(eval(`<%- JSON.stringify(data) %>`));
+        });
+    </script>
+</body>
+
+</html>

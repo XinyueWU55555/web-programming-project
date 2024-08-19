@@ -1,0 +1,14 @@
+hi
+
+<%= booking.email %>,
+<%= booking.numTickets %>,
+<%= booking.team %>,
+<%= booking.superhero %>,
+<%= booking.payment %>,
+<%= booking.terms %>
+
+<form action="/booking/delete/<%= booking._id %>" method="post">
+    <button type="submit">Delete</button>
+</form>
+
+
